@@ -1,0 +1,104 @@
+//////////////////////////////////////////////////////////////////////////
+// Variables /////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+// Dimensions ----------------->
+$mobileWidth: 375px;
+$desktopWidth: 1440px;
+$desktopHeight: 1056px;
+
+$mainWidth: 540px;
+
+// ----------------------------<
+
+// Colors --------------------->
+
+$dark-background: #181824;
+
+// ----------------------------<
+
+// Fonts ---------------------->
+
+// ----------------------------<
+
+// Breakpoints ---------------->
+
+// ----------------------------<
+
+body {
+	box-sizing: border-box;
+	font-size: 18px;
+	background-color: #000;
+	margin: 0;
+	overflow: hidden;
+
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.wrapper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	max-width: $desktopWidth;
+	max-height: $desktopHeight;
+	margin: 0 auto;
+
+	.background {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		background-color: $dark-background;
+		z-index: -1;
+
+		img {
+			max-width: 100%;
+			height: auto;
+			margin: 0 auto;
+		}
+	}
+
+	.main {
+		width: ($mainWidth / $desktopWidth) * 100%;
+		height: 100%;
+		max-width: $mainWidth;
+		margin: 78px auto auto;
+
+		.head {
+			position: absolute;
+			display: flex;
+			justify-content: space-between;
+			width: ($mainWidth / $desktopWidth) * 100%;
+			// height: 100%;
+			max-width: $mainWidth;
+
+			h1 {
+				// display: inline-block;
+				font-size: 2rem;
+				font-weight: 600;
+				letter-spacing: 1rem;
+				color: white;
+				margin: 0;
+			}
+
+			img {
+				cursor: pointer;
+			}
+
+			#sun.hide {
+				display: none;
+			}
+
+			#moon.hide {
+				display: none;
+			}
+		}
+	}
+}
+
+.todoText {
+	color: blue;
+}
