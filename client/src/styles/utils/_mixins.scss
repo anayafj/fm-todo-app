@@ -1,0 +1,15 @@
+@mixin circle-btn {
+	width: 22px;
+	height: 22px;
+	border-radius: 100%;
+}
+
+@mixin circle-btn-gradient {
+	@include circle-btn;
+	background-color: $linear-gradient;
+}
+
+@mixin circle-border {
+	@include circle-btn;
+	border: 2px solid $circle-border-color;
+}

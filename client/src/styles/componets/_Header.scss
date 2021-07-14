@@ -1,0 +1,30 @@
+.head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	max-width: $mainWidth;
+	margin-bottom: 30px;
+
+	h1 {
+		font-size: 2rem;
+		font-weight: 600;
+		letter-spacing: 0.8rem;
+		color: white;
+		margin: 0;
+		padding-top: 6px;
+	}
+
+	img {
+		// position: relative;
+		cursor: pointer;
+	}
+
+	#sun.hide {
+		display: none;
+	}
+
+	#moon.hide {
+		display: none;
+	}
+}

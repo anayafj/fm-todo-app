@@ -1,0 +1,53 @@
+//////////////////////////////////////////////////////////////////////////
+// Variables /////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+// Dimensions ----------------->
+$mobileWidth: 375px;
+$desktopWidth: 1440px;
+$desktopHeight: 1056px;
+
+$mainWidth: 540px;
+
+// ----------------------------<
+
+// Colors --------------------->
+
+// Primary
+$primary-color-teal: hsl(192, 100%, 67%);
+$primary-color-magenta: hsl(280, 87%, 65%);
+
+//Dark Theme
+$dark-color-lightGray: hsl(236, 33%, 92%);
+$dark-color-gray: hsl(233, 14%, 35%);
+$dark-color-drkGrey: hsl(237, 14%, 26%);
+$dark-color-drkBlue: hsl(235, 21%, 11%);
+$dark-color-drkBlue-desaturated: hsl(235, 24%, 19%);
+
+// Backgrounds
+$container-background: $dark-color-drkBlue;
+$todoList-background: $dark-color-drkBlue-desaturated;
+
+// input field
+$text-color-dim: $dark-color-gray;
+$text-color-on: $dark-color-lightGray;
+
+//check button colors
+$circle-border-color: $dark-color-drkGrey;
+$circle-border-color-hover: $dark-color-lightGray;
+$linear-gradient: linear-gradient(
+	140deg,
+	$primary-color-teal,
+	$primary-color-magenta
+);
+
+// ----------------------------<
+
+// Fonts ---------------------->
+$font-family: 'Josefin Sans', sans-serif;
+
+// ----------------------------<
+
+// Breakpoints ---------------->
+
+// ----------------------------<

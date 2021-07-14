@@ -1,30 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
+import Header from './Header';
 import CreateTodoItem from './CreateTodoItem';
+import TodoList from './TodoList';
 
 class App extends React.Component {
+	componentDidMount = () => {
+		this.props.getTasks();
+	};
+
 	render() {
 		return (
 			<div className="wrapper">
 				<div className="main">
-					<div className="head">
-						<h1>TODO</h1>
-						<img
-							id="sun"
-							src="./images/icon-sun.svg"
-							alt="Light Theme toggle"
-							width="26"
-							height="26"
-						/>
-						<img
-							id="moon"
-							className="hide"
-							src="./images/icon-moon.svg"
-							alt="Dark Theme toggle"
-							width="26"
-							height="26"
-						/>
-					</div>
+					<Header />
 					<CreateTodoItem />
+					{this.props.tasks && <TodoList />}
 				</div>
 				<div className="background">
 					<img
@@ -38,26 +31,9 @@ class App extends React.Component {
 		);
 	}
 }
-// import logo from './logo.svg';
-// import './App.css';
 
-// function App() {
-// 	const [data, setData] = React.useState(null);
+const mapStateToProps = (state) => {
+	return { tasks: state.length > 0 ? true : false };
+};
 
-// 	React.useEffect(() => {
-// 		fetch('/api')
-// 			.then((res) => res.json())
-// 			.then((data) => setData(data.message));
-// 	}, []);
-
-// 	return (
-// 		<div className="App">
-// 			<header className="App-header">
-// 				<img src={logo} className="App-logo" alt="logo" />
-// 				<p>{!data ? 'Loading...' : data}</p>
-// 			</header>
-// 		</div>
-// 	);
-// }
-
-export default App;
+export default connect(mapStateToProps, actions)(App);

@@ -2,10 +2,10 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-size: 18px;
+  font-family: "Josefin Sans", sans-serif;
   background-color: #000;
   margin: 0;
   overflow: hidden;
-  font-family: 'Josefin Sans', sans-serif;
 }
 
 .wrapper {
@@ -31,7 +31,7 @@ body {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  background-color: #181824;
+  background-color: #161722;
   z-index: -1;
 }
 
@@ -48,39 +48,123 @@ body {
   margin: 78px auto auto;
 }
 
-.wrapper .main .head {
-  position: absolute;
+.head {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 37.5%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
   max-width: 540px;
+  margin-bottom: 30px;
 }
 
-.wrapper .main .head h1 {
+.head h1 {
   font-size: 2rem;
   font-weight: 600;
-  letter-spacing: 1rem;
+  letter-spacing: 0.8rem;
   color: white;
   margin: 0;
+  padding-top: 6px;
 }
 
-.wrapper .main .head img {
+.head img {
   cursor: pointer;
 }
 
-.wrapper .main .head #sun.hide {
+.head #sun.hide {
   display: none;
 }
 
-.wrapper .main .head #moon.hide {
+.head #moon.hide {
   display: none;
 }
 
-.todoText {
-  color: blue;
+.main form label .todoContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  max-width: 540px;
+  height: 62px;
+  background-color: #25273c;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.main form label .todoContainer .circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  border: 2px solid #393a4c;
+  min-width: 22px;
+  margin: auto 22px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.main form label .todoContainer .circle:hover {
+  border-color: #e4e5f1;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+
+.main form label .todoContainer input {
+  width: 77.77778%;
+  height: 2rem;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 2rem;
+  color: #4d5066;
+  background: transparent;
+  margin-top: 2px;
+  border: none;
+}
+
+.main form label .todoContainer input:focus {
+  color: #e4e5f1;
+  outline: none;
+}
+
+.main form label .todoContainer input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.main form label .todoContainer input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.main form label .todoContainer input:focus::-ms-input-placeholder {
+  color: transparent;
+}
+
+.main form label .todoContainer input:focus::placeholder {
+  color: transparent;
+}
+
+.main form label .todoContainer:hover .xButton {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+}
+
+.main form label .todoContainer .xButton {
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  margin: auto 20px;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
 }
 /*# sourceMappingURL=styles.css.map */
