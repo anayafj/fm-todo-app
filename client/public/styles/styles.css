@@ -167,4 +167,151 @@ body {
   -webkit-transition: opacity 0.3s ease-out;
   transition: opacity 0.3s ease-out;
 }
+
+.main .listContainer {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  background-color: #25273c;
+  margin-top: 30px;
+}
+
+.main .listContainer .itemContainer {
+  width: 100%;
+  height: auto;
+}
+
+.main .listContainer .itemContainer .listItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 62px;
+  border-bottom: 1px solid #4d5066;
+}
+
+.main .listContainer .itemContainer .listItem.selected .item {
+  color: #4d5066;
+  text-decoration: line-through;
+}
+
+.main .listContainer .itemContainer .listItem.selected .circle {
+  background: linear-gradient(140deg, #57ddff, #c058f3);
+}
+
+.main .listContainer .itemContainer .listItem.selected .circle .inner-circle {
+  visibility: hidden;
+}
+
+.main .listContainer .itemContainer .listItem.selected .circle img {
+  visibility: visible;
+}
+
+.main .listContainer .itemContainer .listItem .item {
+  color: #e4e5f1;
+}
+
+.main .listContainer .itemContainer .listItem .circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 100%;
+  min-width: 26px;
+  margin: auto 22px;
+  background: #393a4c;
+  cursor: pointer;
+}
+
+.main .listContainer .itemContainer .listItem .circle:hover {
+  background: linear-gradient(140deg, #57ddff, #c058f3);
+}
+
+.main .listContainer .itemContainer .listItem .circle .inner-circle {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  background-color: #25273c;
+}
+
+.main .listContainer .itemContainer .listItem .circle img {
+  position: relative;
+  top: -13px;
+  left: 8px;
+  display: block;
+  z-index: 2;
+  visibility: hidden;
+}
+
+.main .listContainer .itemContainer .listItem:hover .xButton {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease-in;
+  transition: opacity 0.3s ease-in;
+}
+
+.main .listContainer .itemContainer .listItem .xButton {
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  margin: auto 20px auto auto;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+
+.main .listContainer .listMenu {
+  width: 100%;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.7rem;
+  color: #4d5066;
+}
+
+.main .listContainer .listMenu .details p {
+  padding: 10px 6px 10px 10px;
+}
+
+.main .listContainer .listMenu .filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.main .listContainer .listMenu .filter div {
+  padding: 10px 6px;
+  cursor: pointer;
+}
+
+.main .listContainer .listMenu .filter div:hover {
+  color: #e4e5f1;
+}
+
+.main .listContainer .listMenu .filter div.filter-on {
+  color: #57ddff;
+  pointer-events: none;
+}
+
+.main .listContainer .listMenu .clear div {
+  padding: 10px 10px 10px 6px;
+  cursor: pointer;
+}
+
+.main .listContainer .listMenu .clear div:hover {
+  color: #e4e5f1;
+}
 /*# sourceMappingURL=styles.css.map */

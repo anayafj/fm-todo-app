@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import PropTypes from 'prop-types';
 
+import * as actions from '../actions';
 import Header from './Header';
 import CreateTodoItem from './CreateTodoItem';
 import TodoList from './TodoList';
@@ -31,6 +32,10 @@ class App extends React.Component {
 		);
 	}
 }
+
+App.propTypes = {
+	tasks: PropTypes.bool,
+};
 
 const mapStateToProps = (state) => {
 	return { tasks: state.length > 0 ? true : false };

@@ -21,7 +21,6 @@ router.get('/tasks/:id', async (req, res) => {
 
 // Create new task
 router.post('/tasks/add', async (req, res) => {
-	console.log('Post-add : body = ', req.body);
 	const task = new Tasks({
 		task: req.body.task,
 	});
@@ -33,13 +32,10 @@ router.post('/tasks/add', async (req, res) => {
 router.patch('/tasks/:id', async (req, res) => {
 	try {
 		const task = await Tasks.findOne({ _id: req.params.id });
-
-		if (req.body.title) {
-			task.title = req.body.title;
-		}
-
-		if (req.body.content) {
-			task.content = req.body.content;
+		// console.log('Patch -- req.body = ', req.body);
+		if (req.body) {
+			// console.log('Body found');
+			task.completed = req.body.completed;
 		}
 
 		await task.save();
@@ -54,7 +50,8 @@ router.patch('/tasks/:id', async (req, res) => {
 router.delete('/tasks/:id', async (req, res) => {
 	try {
 		await Tasks.deleteOne({ _id: req.params.id });
-		res.status(204).send();
+		// res.status(204).send();
+		res.send(req.params.id);
 	} catch {
 		res.status(404);
 		res.send({ error: "Post doesn't exist!" });

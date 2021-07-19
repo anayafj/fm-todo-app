@@ -5,8 +5,9 @@
 }
 
 @mixin circle-btn-gradient {
-	@include circle-btn;
-	background-color: $linear-gradient;
+	width: 26px;
+	height: 26px;
+	border-radius: 100%;
 }
 
 @mixin circle-border {
