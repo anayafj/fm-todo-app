@@ -210,6 +210,14 @@ body {
   visibility: visible;
 }
 
+.main .listContainer .itemContainer .listItem.selected.hide {
+  display: none;
+}
+
+.main .listContainer .itemContainer .listItem.hide {
+  display: none;
+}
+
 .main .listContainer .itemContainer .listItem .item {
   color: #e4e5f1;
 }

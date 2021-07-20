@@ -32,9 +32,7 @@ router.post('/tasks/add', async (req, res) => {
 router.patch('/tasks/:id', async (req, res) => {
 	try {
 		const task = await Tasks.findOne({ _id: req.params.id });
-		// console.log('Patch -- req.body = ', req.body);
 		if (req.body) {
-			// console.log('Body found');
 			task.completed = req.body.completed;
 		}
 
@@ -52,6 +50,21 @@ router.delete('/tasks/:id', async (req, res) => {
 		await Tasks.deleteOne({ _id: req.params.id });
 		// res.status(204).send();
 		res.send(req.params.id);
+	} catch {
+		res.status(404);
+		res.send({ error: "Post doesn't exist!" });
+	}
+});
+
+// Delete multiple tasks by id
+router.delete('/tasks/', async (req, res) => {
+	try {
+		await Tasks.deleteMany({
+			_id: {
+				$in: req.body.ids,
+			},
+		});
+		res.send(req.body.ids);
 	} catch {
 		res.status(404);
 		res.send({ error: "Post doesn't exist!" });

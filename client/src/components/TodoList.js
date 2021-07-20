@@ -9,12 +9,17 @@ const _FILTER_COMPLETED = 'completed';
 
 class TodoList extends Component {
 	state = { activeFilter: _FILTER_ALL };
-	// showAll: true, showActiveOnly: false, showCompletedOnly: false
 
+	// render list of tasks from data
 	renderList() {
 		return this.props.tasks.map(({ task, _id, completed }) => {
 			return (
-				<div className={`listItem ${completed ? 'selected' : ''}`} key={_id}>
+				<div
+					className={`listItem ${completed ? 'selected' : ''} 
+					${this.state.activeFilter === _FILTER_ACTIVE && completed ? 'hide' : ''}
+					${this.state.activeFilter === _FILTER_COMPLETED && !completed ? 'hide' : ''}`}
+					key={_id}
+				>
 					<div
 						className="circle"
 						onClick={() => this.updateTaskCompleted(_id, completed)}
@@ -41,19 +46,20 @@ class TodoList extends Component {
 		});
 	}
 
+	// update task as completed; send id and object of complete with boolean value
 	updateTaskCompleted = (id, completed) => {
 		this.props.updatedTask(id, { completed: !completed });
 	};
 
+	// delete single task; send task id
 	deleteTask = (id) => {
 		this.props.deleteTask(id);
 	};
 
+	// controls all filter clicks
 	handleFilterClicks = (evt) => {
 		let targetDiv = evt.target;
 		let updateFilterState = '';
-
-		// document.getElementsByClassName('filter-on').disabled = false;
 
 		switch (targetDiv.id) {
 			case 'btnAll':
@@ -73,21 +79,33 @@ class TodoList extends Component {
 		}
 
 		this.setState({ activeFilter: updateFilterState });
-		// targetDiv.disabled = true;
 	};
 
-	// toggleDisableButton = (btn, target) => {
-	// 	target.disabled = this.state.activeFilter === btn ? true : false;
-	// };
+	// clears all completed task; send array of ids to delete
+	clearCompleted = () => {
+		console.log('Clearing Completed');
+		let completed_Ids = [];
+		this.props.tasks.forEach(({ _id, completed }) => {
+			if (completed) completed_Ids.push(_id);
+		});
+		this.props.deleteTasks(completed_Ids);
+	};
 
 	render() {
+		// get remaining items to complete
+		let itemsLeft;
+		if (this.props.tasks)
+			itemsLeft = this.props.tasks.filter(
+				(task) => task.completed !== true,
+			).length;
+
 		return (
 			<div className="listContainer">
 				<div className="itemContainer">{this.renderList()}</div>
 				<div className="listMenu">
 					<div className="details">
 						<p>
-							<span>5</span> items left
+							<span>{itemsLeft}</span> items left
 						</p>
 					</div>
 					<div className="filter">
@@ -120,7 +138,11 @@ class TodoList extends Component {
 						</div>
 					</div>
 					<div className="clear">
-						<div className="clearCompleted" id="btnClearCompleted">
+						<div
+							className="clearCompleted"
+							id="btnClearCompleted"
+							onClick={() => this.clearCompleted()}
+						>
 							Clear Completed
 						</div>
 					</div>

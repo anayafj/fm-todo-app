@@ -34,6 +34,14 @@
 							visibility: visible;
 						}
 					}
+
+					&.hide {
+						display: none;
+					}
+				}
+
+				&.hide {
+					display: none;
 				}
 
 				.item {
