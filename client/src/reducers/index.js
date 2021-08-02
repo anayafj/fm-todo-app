@@ -6,7 +6,7 @@ const DELETE_TASK = 'delete_task';
 const DELETE_TASKS = 'delete_tasks';
 
 export default function (state = null, action) {
-	// console.log('From Reducer = ', action.payload);
+	console.log('From Reducer = ', action.payload);
 
 	switch (action.type) {
 		case GET_TASKS:

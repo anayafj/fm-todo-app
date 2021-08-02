@@ -22,10 +22,19 @@ class App extends React.Component {
 				</div>
 				<div className="background">
 					<img
+						className="desktop"
 						src="./images/bg-desktop-dark.jpg"
 						width="1440"
 						height="300"
 						alt="Background Header"
+					/>
+
+					<img
+						className="mobile"
+						src="./images/bg-mobile-dark.jpg"
+						width="375"
+						height="200"
+						alt="Background Header for Mobile"
 					/>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/index';
@@ -100,14 +100,58 @@ class TodoList extends Component {
 			).length;
 
 		return (
-			<div className="listContainer">
-				<div className="itemContainer">{this.renderList()}</div>
-				<div className="listMenu">
-					<div className="details">
-						<p>
-							<span>{itemsLeft}</span> items left
-						</p>
+			<Fragment>
+				<div className="listContainer">
+					<div className="itemContainer">{this.renderList()}</div>
+					<div className="listMenu">
+						<div className="details">
+							<p>
+								<span>{itemsLeft}</span> items left
+							</p>
+						</div>
+						<div className="filter">
+							<div
+								className={`all ${
+									this.state.activeFilter === _FILTER_ALL ? 'filter-on' : ''
+								}`}
+								id="btnAll"
+								onClick={(evt) => this.handleFilterClicks(evt)}
+							>
+								All
+							</div>
+							<div
+								className={`active ${
+									this.state.activeFilter === _FILTER_ACTIVE ? 'filter-on' : ''
+								}`}
+								id="btnActive"
+								onClick={(evt) => this.handleFilterClicks(evt)}
+							>
+								Active
+							</div>
+							<div
+								className={`completed ${
+									this.state.activeFilter === _FILTER_COMPLETED
+										? 'filter-on'
+										: ''
+								}`}
+								id="btnCompleted"
+								onClick={(evt) => this.handleFilterClicks(evt)}
+							>
+								Completed
+							</div>
+						</div>
+						<div className="clear">
+							<div
+								className="clearCompleted"
+								id="btnClearCompleted"
+								onClick={() => this.clearCompleted()}
+							>
+								Clear Completed
+							</div>
+						</div>
 					</div>
+				</div>
+				<div className="menu-filter">
 					<div className="filter">
 						<div
 							className={`all ${
@@ -137,17 +181,8 @@ class TodoList extends Component {
 							Completed
 						</div>
 					</div>
-					<div className="clear">
-						<div
-							className="clearCompleted"
-							id="btnClearCompleted"
-							onClick={() => this.clearCompleted()}
-						>
-							Clear Completed
-						</div>
-					</div>
 				</div>
-			</div>
+			</Fragment>
 		);
 	}
 }

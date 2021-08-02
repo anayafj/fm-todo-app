@@ -8,6 +8,7 @@ $desktopWidth: 1440px;
 $desktopHeight: 1056px;
 
 $mainWidth: 540px;
+$mobile-mainWidth: 328px;
 
 // ----------------------------<
 
@@ -49,5 +50,10 @@ $font-family: 'Josefin Sans', sans-serif;
 // ----------------------------<
 
 // Breakpoints ---------------->
+
+$bp-desktop: 1200px;
+$bp-laptop: 1024px;
+$bp-tablet: 768px;
+$bp-mobile: 480px;
 
 // ----------------------------<

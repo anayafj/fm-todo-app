@@ -4,6 +4,7 @@
 		height: auto;
 		border-radius: 5px;
 		background-color: $todoList-background;
+		box-shadow: -7px 7px 7px -4px #00000087;
 		margin-top: 30px;
 
 		.itemContainer {
@@ -46,6 +47,11 @@
 
 				.item {
 					color: $text-color-on;
+					letter-spacing: 0.5px;
+
+					@media screen and (max-width: $mobileWidth) {
+						font-size: 0.8rem;
+					}
 				}
 
 				.circle {
@@ -75,6 +81,25 @@
 						z-index: 2;
 						visibility: hidden;
 					}
+
+					@media screen and (max-width: $mobileWidth) {
+						width: 20px;
+						height: 20px;
+						min-width: 20px;
+						margin-right: 16px;
+
+						.inner-circle {
+							top: 1px;
+							left: 1px;
+							width: 18px;
+							height: 18px;
+						}
+
+						img {
+							top: -12px;
+							left: 5px;
+						}
+					}
 				}
 
 				&:hover {
@@ -92,6 +117,15 @@
 					cursor: pointer;
 					opacity: 0;
 					transition: opacity 0.3s ease-out;
+
+					@media screen and (max-width: $mobileWidth) {
+						padding-top: 4px;
+
+						img {
+							width: 14px;
+							height: 14px;
+						}
+					}
 				}
 			}
 		}
@@ -108,12 +142,20 @@
 			.details {
 				p {
 					padding: 10px 6px 10px 10px;
+
+					@media screen and (max-width: $mobileWidth) {
+						padding-left: 25px;
+					}
 				}
 			}
 
 			.filter {
 				display: flex;
 				justify-content: space-around;
+
+				@media screen and (max-width: 410px) {
+					display: none;
+				}
 
 				div {
 					padding: 10px 6px;
@@ -138,6 +180,47 @@
 					&:hover {
 						color: $text-color-on;
 					}
+
+					@media screen and (max-width: $mobileWidth) {
+						padding-right: 25px;
+					}
+				}
+			}
+		}
+	}
+
+	.menu-filter {
+		width: 100%;
+		height: 50px;
+		display: none;
+		justify-content: space-around;
+		align-items: center;
+		font-size: 1rem;
+		color: $text-color-dim;
+		border-radius: 5px;
+		background-color: $todoList-background;
+		box-shadow: -7px 7px 7px -4px #00000087;
+		margin-top: 20px;
+
+		@media screen and (max-width: $mobileWidth) {
+			display: flex;
+		}
+
+		.filter {
+			display: flex;
+			justify-content: space-around;
+
+			div {
+				padding: 10px 6px;
+				cursor: pointer;
+
+				&:hover {
+					color: $text-color-on;
+				}
+
+				&.filter-on {
+					color: $primary-color-teal;
+					pointer-events: none;
 				}
 			}
 		}

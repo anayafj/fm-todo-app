@@ -38,14 +38,3 @@ export const deleteTasks = (idArray) => async (dispatch) => {
 	});
 	dispatch({ type: DELETE_TASKS, payload: response.data });
 };
-
-//TRY THIS // https://masteringjs.io/tutorials/axios/all
-// const axiosrequest1 = axios.get('https://httpbin.org/get');
-// const axiosrequest2 = axios.get('https://httpbin.org/get');
-// const axiosrequest3 = axios.get('https://httpbin.org/get');
-// // you could also use destructuring to have an array of responses
-// await axios.all([axiosrequest1, axiosrequest2, axiosrequest3]).then(axios.spread(function(res1, res2, res3) {
-//   console.log(res1);
-//   console.log(res2);
-//   console.log(res3);
-// }));

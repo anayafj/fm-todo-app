@@ -27,47 +27,41 @@ body {
 		z-index: -1;
 
 		img {
+			visibility: hidden;
 			max-width: 100%;
+			min-height: 200px;
 			height: auto;
 			margin: 0 auto;
+			position: absolute;
+		}
+
+		.desktop {
+			min-width: 960px;
+		}
+
+		.mobile {
+			min-width: 375px;
+		}
+
+		@media screen and (min-width: $mobileWidth + 1) {
+			.desktop {
+				visibility: visible;
+			}
+		}
+
+		@media screen and (max-width: $mobileWidth) {
+			.mobile {
+				visibility: visible;
+			}
 		}
 	}
 
 	.main {
-		width: ($mainWidth / $desktopWidth) * 100%;
+		width: 80%;
+		// width: ($mainWidth / $desktopWidth) * 100%;
 		height: 100%;
 		max-width: $mainWidth;
+		min-width: $mobile-mainWidth;
 		margin: 78px auto auto;
-
-		// .head {
-		// 	display: flex;
-		// 	justify-content: space-between;
-		// 	align-items: center;
-		// 	width: 100%;
-		// 	max-width: $mainWidth;
-		// 	margin-bottom: 30px;
-
-		// 	h1 {
-		// 		font-size: 2rem;
-		// 		font-weight: 600;
-		// 		letter-spacing: 0.8rem;
-		// 		color: white;
-		// 		margin: 0;
-		// 		padding-top: 6px;
-		// 	}
-
-		// 	img {
-		// 		// position: relative;
-		// 		cursor: pointer;
-		// 	}
-
-		// 	#sun.hide {
-		// 		display: none;
-		// 	}
-
-		// 	#moon.hide {
-		// 		display: none;
-		// 	}
-		// }
 	}
 }
