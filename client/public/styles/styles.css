@@ -64,6 +64,14 @@ body {
   }
 }
 
+.wrapper.theme-day .background #ltDesktopBg {
+  visibility: visible;
+}
+
+.wrapper.theme-day .background #drkDesktopBg {
+  visibility: hidden;
+}
+
 .wrapper .main {
   width: 80%;
   height: 100%;
@@ -96,15 +104,19 @@ body {
   padding-top: 6px;
 }
 
-.head img {
+.head .theme-icon {
   cursor: pointer;
 }
 
-.head #sun.hide {
+.head .theme-icon img {
+  cursor: pointer;
+}
+
+.head .theme-icon #sun.hide {
   display: none;
 }
 
-.head #moon.hide {
+.head .theme-icon #moon.hide {
   display: none;
 }
 

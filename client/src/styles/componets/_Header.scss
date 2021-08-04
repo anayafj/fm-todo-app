@@ -15,16 +15,20 @@
 		padding-top: 6px;
 	}
 
-	img {
-		// position: relative;
+	.theme-icon {
 		cursor: pointer;
-	}
 
-	#sun.hide {
-		display: none;
-	}
+		img {
+			// position: relative;
+			cursor: pointer;
+		}
 
-	#moon.hide {
-		display: none;
+		#sun.hide {
+			display: none;
+		}
+
+		#moon.hide {
+			display: none;
+		}
 	}
 }

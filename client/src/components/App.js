@@ -8,25 +8,42 @@ import CreateTodoItem from './CreateTodoItem';
 import TodoList from './TodoList';
 
 class App extends React.Component {
+	state = { isThemeDay: false };
+
 	componentDidMount = () => {
 		this.props.getTasks();
 	};
 
+	setUpdatedTheme = (isDay) => {
+		console.log('APP SETUP THEME -- isDay = ', isDay);
+		this.setState({ isThemeDay: isDay });
+	};
+
 	render() {
 		return (
-			<div className="wrapper">
+			<div className={`wrapper ${this.state.isThemeDay ? 'theme-day' : ''}`}>
 				<div className="main">
-					<Header />
+					<Header setUpdatedTheme={this.setUpdatedTheme} />
 					<CreateTodoItem />
 					{this.props.tasks && <TodoList />}
 				</div>
 				<div className="background">
 					<img
 						className="desktop"
+						id="drkDesktopBg"
 						src="./images/bg-desktop-dark.jpg"
 						width="1440"
 						height="300"
-						alt="Background Header"
+						alt="Background Header - Night theme"
+					/>
+
+					<img
+						className="desktop"
+						id="ltDesktopBg"
+						src="./images/bg-desktop-light.jpg"
+						width="1440"
+						height="300"
+						alt="Background Header - Night theme"
 					/>
 
 					<img
@@ -34,7 +51,7 @@ class App extends React.Component {
 						src="./images/bg-mobile-dark.jpg"
 						width="375"
 						height="200"
-						alt="Background Header for Mobile"
+						alt="Background Header for Mobile  - Night theme"
 					/>
 				</div>
 			</div>

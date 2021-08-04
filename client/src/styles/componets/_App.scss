@@ -56,6 +56,17 @@ body {
 		}
 	}
 
+	&.theme-day {
+		.background {
+			#ltDesktopBg {
+				visibility: visible;
+			}
+			#drkDesktopBg {
+				visibility: hidden;
+			}
+		}
+	}
+
 	.main {
 		width: 80%;
 		// width: ($mainWidth / $desktopWidth) * 100%;
