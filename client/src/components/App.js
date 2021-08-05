@@ -7,6 +7,11 @@ import Header from './Header';
 import CreateTodoItem from './CreateTodoItem';
 import TodoList from './TodoList';
 
+const DARK_BACKGROUND = './images/bg-desktop-dark.jpg';
+const LIGHT_BACKGROUND = './images/bg-desktop-light.jpg';
+const DARK_MOBILE_BACKGROUND = './images/bg-mobile-dark.jpg';
+const LIGHT_MOBILE_BACKGROUND = './images/bg-mobile-light.jpg';
+
 class App extends React.Component {
 	state = { isThemeDay: false };
 
@@ -30,28 +35,25 @@ class App extends React.Component {
 				<div className="background">
 					<img
 						className="desktop"
-						id="drkDesktopBg"
-						src="./images/bg-desktop-dark.jpg"
+						id="DesktopBg"
+						src={`${
+							this.state.isThemeDay ? LIGHT_BACKGROUND : DARK_BACKGROUND
+						}`}
 						width="1440"
 						height="300"
-						alt="Background Header - Night theme"
-					/>
-
-					<img
-						className="desktop"
-						id="ltDesktopBg"
-						src="./images/bg-desktop-light.jpg"
-						width="1440"
-						height="300"
-						alt="Background Header - Night theme"
+						alt="Background Header"
 					/>
 
 					<img
 						className="mobile"
-						src="./images/bg-mobile-dark.jpg"
+						src={`${
+							this.state.isThemeDay
+								? LIGHT_MOBILE_BACKGROUND
+								: DARK_MOBILE_BACKGROUND
+						}`}
 						width="375"
 						height="200"
-						alt="Background Header for Mobile  - Night theme"
+						alt="Background Header for Mobile"
 					/>
 				</div>
 			</div>

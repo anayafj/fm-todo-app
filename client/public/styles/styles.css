@@ -64,14 +64,6 @@ body {
   }
 }
 
-.wrapper.theme-day .background #ltDesktopBg {
-  visibility: visible;
-}
-
-.wrapper.theme-day .background #drkDesktopBg {
-  visibility: hidden;
-}
-
 .wrapper .main {
   width: 80%;
   height: 100%;
