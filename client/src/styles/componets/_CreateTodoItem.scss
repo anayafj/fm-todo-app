@@ -16,12 +16,12 @@
 				min-width: 22px;
 				margin: auto 22px;
 				cursor: pointer;
-				transition: all 0.3s ease-out;
+				// transition: all 0.3s ease-out;
 
 				// NEED TO MAKE HOVER A GRADIENT
 				&:hover {
 					border-color: $circle-border-color-hover;
-					transition: all 0.3s ease-in;
+					// transition: all 0.3s ease-in;
 				}
 
 				@media screen and (max-width: $mobileWidth) {
@@ -75,6 +75,11 @@
 				opacity: 0;
 				transition: opacity 0.3s ease-out;
 
+				svg {
+					fill: #494c6b;
+					// fill-rule: evenodd;
+				}
+
 				@media screen and (max-width: $mobileWidth) {
 					padding-top: 4px;
 
@@ -83,6 +88,32 @@
 						height: 14px;
 					}
 				}
+			}
+		}
+	}
+}
+
+.theme-day .main .mainInput .todoContainer {
+	background-color: #fff;
+	box-shadow: 0 0 11px 0 #0000002a;
+
+	.circle {
+		border-color: $light-color-lightGrayBlue;
+
+		&:hover {
+			border-color: $light-color-veryDrkGrayBlue;
+		}
+	}
+
+	input {
+		color: $light-color-drkGrayBlue; //$light-color-lightGrayBlue;
+
+		&::placeholder {
+			color: $light-color-greyBlue;
+		}
+		&:focus {
+			&::placeholder {
+				color: transparent;
 			}
 		}
 	}

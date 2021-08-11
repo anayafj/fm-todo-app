@@ -26,6 +26,10 @@ body {
   margin: 0 auto;
 }
 
+.wrapper.theme-day .background {
+  background-color: #e4e5f1;
+}
+
 .wrapper .background {
   position: absolute;
   width: 100%;
@@ -137,14 +141,10 @@ body {
   min-width: 22px;
   margin: auto 22px;
   cursor: pointer;
-  -webkit-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
 }
 
 .main form label .todoContainer .circle:hover {
   border-color: #e4e5f1;
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
 }
 
 @media screen and (max-width: 375px) {
@@ -214,6 +214,10 @@ body {
   transition: opacity 0.3s ease-out;
 }
 
+.main form label .todoContainer .xButton svg {
+  fill: #494c6b;
+}
+
 @media screen and (max-width: 375px) {
   .main form label .todoContainer .xButton {
     padding-top: 4px;
@@ -222,6 +226,56 @@ body {
     width: 14px;
     height: 14px;
   }
+}
+
+.theme-day .main .mainInput .todoContainer {
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 11px 0 #0000002a;
+          box-shadow: 0 0 11px 0 #0000002a;
+}
+
+.theme-day .main .mainInput .todoContainer .circle {
+  border-color: #e4e5f1;
+}
+
+.theme-day .main .mainInput .todoContainer .circle:hover {
+  border-color: #484b6a;
+}
+
+.theme-day .main .mainInput .todoContainer input {
+  color: #9394a5;
+}
+
+.theme-day .main .mainInput .todoContainer input::-webkit-input-placeholder {
+  color: #d2d3db;
+}
+
+.theme-day .main .mainInput .todoContainer input:-ms-input-placeholder {
+  color: #d2d3db;
+}
+
+.theme-day .main .mainInput .todoContainer input::-ms-input-placeholder {
+  color: #d2d3db;
+}
+
+.theme-day .main .mainInput .todoContainer input::placeholder {
+  color: #d2d3db;
+}
+
+.theme-day .main .mainInput .todoContainer input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.theme-day .main .mainInput .todoContainer input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.theme-day .main .mainInput .todoContainer input:focus::-ms-input-placeholder {
+  color: transparent;
+}
+
+.theme-day .main .mainInput .todoContainer input:focus::placeholder {
+  color: transparent;
 }
 
 .main .listContainer {
@@ -400,7 +454,7 @@ body {
       justify-content: space-around;
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 375px) {
   .main .listContainer .listMenu .filter {
     display: none;
   }
@@ -481,5 +535,51 @@ body {
 .main .menu-filter .filter div.filter-on {
   color: #57ddff;
   pointer-events: none;
+}
+
+.theme-day .main .listContainer {
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 11px 0 #0000002a;
+          box-shadow: 0 0 11px 0 #0000002a;
+}
+
+.theme-day .main .listContainer .listItem {
+  border-bottom-color: #e4e5f1;
+}
+
+.theme-day .main .listContainer .listItem .item {
+  color: #9394a5;
+}
+
+.theme-day .main .listContainer .listItem .circle {
+  background: #e4e5f1;
+}
+
+.theme-day .main .listContainer .listItem .circle .inner-circle {
+  background-color: #fff;
+}
+
+.theme-day .main .listContainer .listItem.selected .item {
+  color: #d2d3db;
+}
+
+.theme-day .main .listContainer .listMenu {
+  color: #9394a5;
+}
+
+.theme-day .main .listContainer .listMenu .filter div:hover,
+.theme-day .main .listContainer .listMenu .clear div:hover {
+  color: #484b6a;
+}
+
+.theme-day .main .menu-filter {
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 11px 0 #0000002a;
+          box-shadow: 0 0 11px 0 #0000002a;
+  color: #9394a5;
+}
+
+.theme-day .main .menu-filter .filter div:hover {
+  color: #484b6a;
 }
 /*# sourceMappingURL=styles.css.map */

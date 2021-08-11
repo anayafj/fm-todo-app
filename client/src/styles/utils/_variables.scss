@@ -25,6 +25,13 @@ $dark-color-drkGrey: hsl(237, 14%, 26%);
 $dark-color-drkBlue: hsl(235, 21%, 11%);
 $dark-color-drkBlue-desaturated: hsl(235, 24%, 19%);
 
+//Light Theme
+$light-color-lightGray: hsl(0, 0%, 98%);
+$light-color-lightGrayBlue: hsl(236, 33%, 92%);
+$light-color-greyBlue: hsl(233, 11%, 84%);
+$light-color-drkGrayBlue: hsl(236, 9%, 61%);
+$light-color-veryDrkGrayBlue: hsl(235, 19%, 35%);
+
 // Backgrounds
 $container-background: $dark-color-drkBlue;
 $todoList-background: $dark-color-drkBlue-desaturated;

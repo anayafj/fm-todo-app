@@ -18,6 +18,10 @@ body {
 	max-height: $desktopHeight;
 	margin: 0 auto;
 
+	&.theme-day .background {
+		background-color: $dark-color-lightGray;
+	}
+
 	.background {
 		position: absolute;
 		width: 100%;
@@ -37,7 +41,6 @@ body {
 
 		.desktop {
 			min-width: 960px;
-			// background: url('../images/bg-desktop-dark.jpg') no-repeat;
 		}
 
 		.mobile {
@@ -57,21 +60,8 @@ body {
 		}
 	}
 
-	&.theme-day {
-		.background {
-			.desktop {
-				// display: block;
-				// box-sizing: border-box;
-				// background: url('../images/bg-desktop-light.jpg') no-repeat;
-				// width: 1440px;
-				// height: 300px;
-			}
-		}
-	}
-
 	.main {
 		width: 80%;
-		// width: ($mainWidth / $desktopWidth) * 100%;
 		height: 100%;
 		max-width: $mainWidth;
 		min-width: $mobile-mainWidth;
