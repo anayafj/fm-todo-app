@@ -6,7 +6,7 @@
 .pnp.js
 
 #modules
-keys.js
+dev.js
 
 # testing
 /coverage
