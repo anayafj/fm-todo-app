@@ -10,12 +10,22 @@ const _FILTER_ACTIVE = 'active';
 const _FILTER_COMPLETED = 'completed';
 
 class TodoList extends Component {
-	state = { activeFilter: _FILTER_ALL, tasks: this.props.tasks };
+	state = { activeFilter: _FILTER_ALL, todos: this.props.tasks };
+
+	componentDidUpdate(prevProps, prevState) {
+		// console.log('prevProps did update = ', prevProps.tasks);
+		// console.log('prevState did update = ', prevState.todos);
+		// console.log('updated tasks = ', this.props.tasks);
+
+		if (prevProps.tasks !== this.props.tasks) {
+			this.setState({ todos: this.props.tasks });
+		}
+	}
 
 	// render list of tasks from data
 	renderList() {
 		// return this.props.tasks.map(({ task, _id, completed }, index) => {
-		return this.state.tasks.map(({ task, _id, completed }, index) => {
+		return this.state.todos.map(({ task, _id, completed }, index) => {
 			return (
 				<Draggable key={_id} draggableId={_id} index={index}>
 					{(provided) => (
@@ -101,12 +111,15 @@ class TodoList extends Component {
 	};
 
 	handleOnDragEnd = (result) => {
+		console.log('result - ', result);
 		if (!result.destination) return;
-		const items = Array.from(this.state.tasks); // create a new copy of our characters array
-		const [reorderedItem] = items.splice(result.source.index, 1); // use the source.index value to find our item from our new array and remove it using the splice method
-		items.splice(result.destination.index, 0, reorderedItem); // then use our destination.index to add that item back into the array, but at it’s new location, again using splice
+		const items = Array.from(this.state.todos); // create a new copy of our characters array
+		// use the source.index value to find our item from our new array and remove it using the splice method
+		const [reorderedItem] = items.splice(result.source.index, 1);
+		// then use our destination.index to add that item back into the array, but at it’s new location, again using splice
+		items.splice(result.destination.index, 0, reorderedItem);
 
-		this.setState({ tasks: items });
+		this.setState({ todos: items }); // update new order by updating the tasks state
 	};
 
 	render() {
