@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 import * as actions from '../actions/index';
 
 const _FILTER_ALL = 'all';
@@ -8,40 +10,47 @@ const _FILTER_ACTIVE = 'active';
 const _FILTER_COMPLETED = 'completed';
 
 class TodoList extends Component {
-	state = { activeFilter: _FILTER_ALL };
+	state = { activeFilter: _FILTER_ALL, tasks: this.props.tasks };
 
 	// render list of tasks from data
 	renderList() {
-		return this.props.tasks.map(({ task, _id, completed }) => {
+		// return this.props.tasks.map(({ task, _id, completed }, index) => {
+		return this.state.tasks.map(({ task, _id, completed }, index) => {
 			return (
-				<div
-					className={`listItem ${completed ? 'selected' : ''} 
+				<Draggable key={_id} draggableId={_id} index={index}>
+					{(provided) => (
+						<div
+							className={`listItem ${completed ? 'selected' : ''} 
 					${this.state.activeFilter === _FILTER_ACTIVE && completed ? 'hide' : ''}
 					${this.state.activeFilter === _FILTER_COMPLETED && !completed ? 'hide' : ''}`}
-					key={_id}
-				>
-					<div
-						className="circle"
-						onClick={() => this.updateTaskCompleted(_id, completed)}
-					>
-						<div className="inner-circle"></div>
-						<img
-							src="./images/icon-check.svg"
-							alt="check icon"
-							width="11"
-							height="9"
-						/>
-					</div>
-					<div className="item ">{task}</div>
-					<div className="xButton" onClick={() => this.deleteTask(_id)}>
-						<img
-							src="./images/icon-cross.svg"
-							width="18"
-							height="18"
-							alt="Clear Input button"
-						/>
-					</div>
-				</div>
+							ref={provided.innerRef}
+							{...provided.draggableProps}
+							{...provided.dragHandleProps}
+						>
+							<div
+								className="circle"
+								onClick={() => this.updateTaskCompleted(_id, completed)}
+							>
+								<div className="inner-circle"></div>
+								<img
+									src="./images/icon-check.svg"
+									alt="check icon"
+									width="11"
+									height="9"
+								/>
+							</div>
+							<div className="item ">{task}</div>
+							<div className="xButton" onClick={() => this.deleteTask(_id)}>
+								<img
+									src="./images/icon-cross.svg"
+									width="18"
+									height="18"
+									alt="Clear Input button"
+								/>
+							</div>
+						</div>
+					)}
+				</Draggable>
 			);
 		});
 	}
@@ -91,6 +100,15 @@ class TodoList extends Component {
 		this.props.deleteTasks(completed_Ids);
 	};
 
+	handleOnDragEnd = (result) => {
+		if (!result.destination) return;
+		const items = Array.from(this.state.tasks); // create a new copy of our characters array
+		const [reorderedItem] = items.splice(result.source.index, 1); // use the source.index value to find our item from our new array and remove it using the splice method
+		items.splice(result.destination.index, 0, reorderedItem); // then use our destination.index to add that item back into the array, but at it’s new location, again using splice
+
+		this.setState({ tasks: items });
+	};
+
 	render() {
 		// get remaining items to complete
 		let itemsLeft;
@@ -102,7 +120,20 @@ class TodoList extends Component {
 		return (
 			<Fragment>
 				<div className="listContainer">
-					<div className="itemContainer">{this.renderList()}</div>
+					<DragDropContext onDragEnd={this.handleOnDragEnd}>
+						<Droppable droppableId="tasks">
+							{(provided) => (
+								<div
+									className="itemContainer  tasks"
+									{...provided.droppableProps}
+									ref={provided.innerRef}
+								>
+									{this.renderList()}
+									{provided.placeholder}
+								</div>
+							)}
+						</Droppable>
+					</DragDropContext>
 					<div className="listMenu">
 						<div className="details">
 							<p>
