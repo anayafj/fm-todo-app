@@ -3,6 +3,7 @@ import axios from 'axios';
 const GET_TASKS = 'get_tasks';
 const ADD_TASK = 'add_task';
 const UPDATE_TASK = 'update_task';
+const UPDATE_TASK_ORDER = 'update_task_order';
 const DELETE_TASK = 'delete_task';
 const DELETE_TASKS = 'delete_tasks';
 
@@ -21,6 +22,11 @@ export const addTask = (task) => async (dispatch) => {
 export const updatedTask = (id, completed) => async (dispatch) => {
 	const response = await axios.patch(`/api/tasks/${id}`, completed);
 	dispatch({ type: UPDATE_TASK, payload: response.data });
+};
+
+export const updateTaskListOrder = (id, order) => async (dispatch) => {
+	const response = await axios.patch(`/api/task/${id}`, order);
+	dispatch({ type: UPDATE_TASK_ORDER, payload: response.data });
 };
 
 // Delete task

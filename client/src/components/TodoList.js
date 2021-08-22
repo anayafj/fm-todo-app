@@ -13,18 +13,14 @@ class TodoList extends Component {
 	state = { activeFilter: _FILTER_ALL, todos: this.props.tasks };
 
 	componentDidUpdate(prevProps, prevState) {
-		// console.log('prevProps did update = ', prevProps.tasks);
-		// console.log('prevState did update = ', prevState.todos);
-		// console.log('updated tasks = ', this.props.tasks);
-
 		if (prevProps.tasks !== this.props.tasks) {
 			this.setState({ todos: this.props.tasks });
+			console.log('Updated State - todos = ', this.state.todos);
 		}
 	}
 
 	// render list of tasks from data
 	renderList() {
-		// return this.props.tasks.map(({ task, _id, completed }, index) => {
 		return this.state.todos.map(({ task, _id, completed }, index) => {
 			return (
 				<Draggable key={_id} draggableId={_id} index={index}>
@@ -70,6 +66,49 @@ class TodoList extends Component {
 		this.props.updatedTask(id, { completed: !completed });
 	};
 
+	// update task list order; send object of order with id order pair
+	updateTaskListOrder = (result, items) => {
+		console.log('result - ', result);
+		console.log('items - ', items);
+		// this.props.updateTaskListOrder(id, { order });
+
+		// get result key values of : draggableId, destination.index, source.index
+		// check to see how many task order will need to be updated.
+		// pass thru object of tasks to update order index
+
+		const UpdateTaskListOrder = {};
+		const prevTasksArray = this.state.todos;
+		const draggableId = result.draggableId;
+		const draggableDestinationIndex = result.destination.index;
+		const draggableSourceIndex = result.source.index;
+		let amountOfTasksToUpdateOrder =
+			draggableDestinationIndex < draggableSourceIndex
+				? draggableSourceIndex - draggableDestinationIndex
+				: draggableDestinationIndex - draggableSourceIndex;
+
+		const filterTasksToUpdate = (moveUp = true) => {
+			// let updated = 0;
+			if (moveUp) {
+				do {
+					amountOfTasksToUpdateOrder--;
+					console.log(
+						'Move Up - update - amountOfTasksToUpdateOrder = ',
+						amountOfTasksToUpdateOrder,
+					);
+				} while (amountOfTasksToUpdateOrder >= 0);
+			}
+		};
+
+		if (draggableDestinationIndex < draggableSourceIndex) {
+			console.log('Moved up');
+			console.log('prevTasksArray - ', prevTasksArray);
+			filterTasksToUpdate();
+		} else {
+			console.log('Moved down');
+			filterTasksToUpdate(false);
+		}
+	};
+
 	// delete single task; send task id
 	deleteTask = (id) => {
 		this.props.deleteTask(id);
@@ -111,18 +150,25 @@ class TodoList extends Component {
 	};
 
 	handleOnDragEnd = (result) => {
-		console.log('result - ', result);
+		// console.log('result - ', result);
 		if (!result.destination) return;
-		const items = Array.from(this.state.todos); // create a new copy of our characters array
+		// create a new copy of our characters array
+		const items = Array.from(this.state.todos);
 		// use the source.index value to find our item from our new array and remove it using the splice method
 		const [reorderedItem] = items.splice(result.source.index, 1);
 		// then use our destination.index to add that item back into the array, but at it’s new location, again using splice
 		items.splice(result.destination.index, 0, reorderedItem);
 
 		this.setState({ todos: items }); // update new order by updating the tasks state
+		// console.log('drag end - items = ', items);
+		// console.log('drag end - reorderedItem = ', reorderedItem);
+		// console.log('drag end - OG items = ', this.state.todos);
+		this.updateTaskListOrder(result, items);
 	};
 
 	render() {
+		// console.log('Render ---- Updated State - todos = ', this.state.todos);
+		// console.log('Render ---- Updated Props - tasks = ', this.props.tasks);
 		// get remaining items to complete
 		let itemsLeft;
 		if (this.props.tasks)

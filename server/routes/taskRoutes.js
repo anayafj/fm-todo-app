@@ -5,6 +5,7 @@ const router = express.Router();
 // Get all Tasks
 router.get('/tasks', async (req, res) => {
 	const tasks = await Tasks.find();
+	console.log('tasks from DB - ', tasks);
 	res.send(tasks);
 });
 
@@ -34,6 +35,22 @@ router.patch('/tasks/:id', async (req, res) => {
 		const task = await Tasks.findOne({ _id: req.params.id });
 		if (req.body) {
 			task.completed = req.body.completed;
+		}
+
+		await task.save();
+		res.send(task);
+	} catch {
+		res.status(404);
+		res.send({ error: "Post doesn't exist!" });
+	}
+});
+
+// Update task list order
+router.patch('/tasks/:id', async (req, res) => {
+	try {
+		const task = await Tasks.findOne({ _id: req.params.id });
+		if (req.body) {
+			task.order = req.body.order;
 		}
 
 		await task.save();

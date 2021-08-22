@@ -2,6 +2,7 @@
 const GET_TASKS = 'get_tasks';
 const ADD_TASK = 'add_task';
 const UPDATE_TASK = 'update_task';
+const UPDATE_TASK_ORDER = 'update_task_order';
 const DELETE_TASK = 'delete_task';
 const DELETE_TASKS = 'delete_tasks';
 
@@ -22,6 +23,8 @@ export default function (state = null, action) {
 				return task;
 			});
 			return updatedArray;
+		case UPDATE_TASK_ORDER:
+			return action.payload || false;
 		case DELETE_TASK:
 			return state.filter((task) => task._id !== action.payload);
 		case DELETE_TASKS:
