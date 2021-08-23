@@ -68,45 +68,39 @@ class TodoList extends Component {
 
 	// update task list order; send object of order with id order pair
 	updateTaskListOrder = (result, items) => {
-		console.log('result - ', result);
-		console.log('items - ', items);
-		// this.props.updateTaskListOrder(id, { order });
-
-		// get result key values of : draggableId, destination.index, source.index
+		// get values of : destination.index, source.index
 		// check to see how many task order will need to be updated.
-		// pass thru object of tasks to update order index
+		// pass thru array and update order index of task object
 
-		const UpdateTaskListOrder = {};
-		const prevTasksArray = this.state.todos;
-		const draggableId = result.draggableId;
+		const UpdatedTasks = [];
 		const draggableDestinationIndex = result.destination.index;
 		const draggableSourceIndex = result.source.index;
-		let amountOfTasksToUpdateOrder =
-			draggableDestinationIndex < draggableSourceIndex
-				? draggableSourceIndex - draggableDestinationIndex
-				: draggableDestinationIndex - draggableSourceIndex;
+		// let amountOfTasksToUpdateOrder =
+		// 	draggableDestinationIndex < draggableSourceIndex
+		// 		? draggableSourceIndex - draggableDestinationIndex
+		// 		: draggableDestinationIndex - draggableSourceIndex;
 
 		const filterTasksToUpdate = (moveUp = true) => {
-			// let updated = 0;
-			if (moveUp) {
-				do {
-					amountOfTasksToUpdateOrder--;
-					console.log(
-						'Move Up - update - amountOfTasksToUpdateOrder = ',
-						amountOfTasksToUpdateOrder,
-					);
-				} while (amountOfTasksToUpdateOrder >= 0);
-			}
+			let arrayPosition = 0;
+			let startIndex = moveUp
+				? draggableDestinationIndex
+				: draggableSourceIndex;
+			let endIndex = moveUp ? draggableSourceIndex : draggableDestinationIndex;
+
+			this.state.todos.forEach((task) => {
+				if (arrayPosition >= startIndex && arrayPosition <= endIndex) {
+					// find new task by id, update order and add task
+					UpdatedTasks.push(items[arrayPosition]);
+				}
+				arrayPosition++;
+			});
+			console.log('Up - UpdatedTasks - ', UpdatedTasks);
 		};
 
-		if (draggableDestinationIndex < draggableSourceIndex) {
-			console.log('Moved up');
-			console.log('prevTasksArray - ', prevTasksArray);
-			filterTasksToUpdate();
-		} else {
-			console.log('Moved down');
-			filterTasksToUpdate(false);
-		}
+		// call function with order direction: false if moving down.
+		draggableDestinationIndex < draggableSourceIndex
+			? filterTasksToUpdate()
+			: filterTasksToUpdate(false);
 	};
 
 	// delete single task; send task id
