@@ -68,33 +68,93 @@ class TodoList extends Component {
 
 	// update task list order; send object of order with id order pair
 	updateTaskListOrder = (result, items) => {
+		console.log('result - ', result);
 		// get values of : destination.index, source.index
 		// check to see how many task order will need to be updated.
 		// pass thru array and update order index of task object
 
 		const UpdatedTasks = [];
+		const DraggableId = result.draggableId;
 		const draggableDestinationIndex = result.destination.index;
 		const draggableSourceIndex = result.source.index;
-		// let amountOfTasksToUpdateOrder =
-		// 	draggableDestinationIndex < draggableSourceIndex
-		// 		? draggableSourceIndex - draggableDestinationIndex
-		// 		: draggableDestinationIndex - draggableSourceIndex;
+		let amountOfTasksToUpdateOrder =
+			draggableDestinationIndex < draggableSourceIndex
+				? draggableSourceIndex - draggableDestinationIndex
+				: draggableDestinationIndex - draggableSourceIndex;
 
 		const filterTasksToUpdate = (moveUp = true) => {
+			let moves = amountOfTasksToUpdateOrder;
 			let arrayPosition = 0;
 			let startIndex = moveUp
 				? draggableDestinationIndex
 				: draggableSourceIndex;
 			let endIndex = moveUp ? draggableSourceIndex : draggableDestinationIndex;
 
+			console.log('startIndex = ', startIndex);
+			console.log('endIndex = ', endIndex);
+
 			this.state.todos.forEach((task) => {
 				if (arrayPosition >= startIndex && arrayPosition <= endIndex) {
 					// find new task by id, update order and add task
-					UpdatedTasks.push(items[arrayPosition]);
+					let currentPrevTask = items[arrayPosition];
+
+					// if ID matches draggableId, update order with destination index
+					if (currentPrevTask._id === DraggableId) {
+						currentPrevTask.order = draggableDestinationIndex;
+						// } else if (arrayPosition === endIndex) {
+						// 	console.log('Check for end index');
+						// 	currentPrevTask.order = moveUp
+						// 		? draggableDestinationIndex + moves
+						// 		: draggableSourceIndex;
+					} else {
+						// update the remaining orders, check if up/down
+						switch (moveUp) {
+							case true:
+								if (arrayPosition === endIndex) {
+									currentPrevTask.order =
+										draggableDestinationIndex + amountOfTasksToUpdateOrder;
+								} else {
+									console.log('UP - The rest of orders');
+									const _TOTAL_ITEMS =
+										items.length - amountOfTasksToUpdateOrder;
+									let movesToMake = _TOTAL_ITEMS - moves;
+									console.log('_TOTAL_ITEMS = ', _TOTAL_ITEMS);
+									console.log('movesToMake = ', movesToMake);
+									console.log(
+										'draggableDestinationIndex = ',
+										draggableDestinationIndex,
+									);
+
+									if (movesToMake > 1) {
+										moves--;
+									}
+									currentPrevTask.order =
+										draggableDestinationIndex + movesToMake;
+									// console.log(
+									// 	'UP - REST -- currentPrevTask = ',
+									// 	currentPrevTask,
+									// );
+								}
+								break;
+							case false:
+								if (arrayPosition === startIndex) {
+									currentPrevTask.order = draggableSourceIndex;
+								}
+								break;
+							default:
+								return;
+						}
+						// currentPrevTask.order = draggableSourceIndex;
+					}
+
+					console.log('currentPrevTask = ', currentPrevTask);
+					console.log('arrayPosition = ', arrayPosition);
+					UpdatedTasks.push(currentPrevTask);
 				}
 				arrayPosition++;
 			});
-			console.log('Up - UpdatedTasks - ', UpdatedTasks);
+
+			// console.log('Up - UpdatedTasks - ', UpdatedTasks);
 		};
 
 		// call function with order direction: false if moving down.
