@@ -5,7 +5,7 @@ const router = express.Router();
 // Get all Tasks
 router.get('/tasks', async (req, res) => {
 	const tasks = await Tasks.find();
-	console.log('tasks from DB - ', tasks);
+	// console.log('tasks from DB - ', tasks);
 	res.send(tasks);
 });
 
@@ -46,25 +46,39 @@ router.patch('/tasks/:id', async (req, res) => {
 });
 
 // Update task list order
-router.patch('/tasks/:id', async (req, res) => {
+router.patch('/tasks/', async (req, res) => {
+	console.log('/////// Reorder API /////////');
+	// console.log('req = ', req.body);
 	try {
-		const task = await Tasks.findOne({ _id: req.params.id });
-		if (req.body) {
-			task.order = req.body.order;
-		}
+		const tasks = [];
+		await asyncForEach(req.body, async (item) => {
+			const task = await Tasks.findOne({ _id: item._id });
+			task.order = item.order;
+			await task.save();
+			tasks.push(task);
+			// console.log('/////// In Try Mode -- task = ', task);
+		});
 
-		await task.save();
-		res.send(task);
+		console.log('/////// In Try Mode -- after await - tasks = ', tasks);
+		res.send(tasks);
 	} catch {
+		console.log('/////// In Catch Mode');
 		res.status(404);
 		res.send({ error: "Post doesn't exist!" });
 	}
 });
 
+// ForEach helper function for async/await
+async function asyncForEach(array, callback) {
+	for (let index = 0; index < array.length; index++) {
+		await callback(array[index], index, array);
+	}
+}
+
 // Delete a task
 router.delete('/tasks/:id', async (req, res) => {
 	try {
-		await Tasks.deleteOne({ _id: req.params.id });
+		await Tasks.deleteOne({ _id: req.params._id });
 		// res.status(204).send();
 		res.send(req.params.id);
 	} catch {

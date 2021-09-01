@@ -24,8 +24,9 @@ export const updatedTask = (id, completed) => async (dispatch) => {
 	dispatch({ type: UPDATE_TASK, payload: response.data });
 };
 
-export const updateTaskListOrder = (id, order) => async (dispatch) => {
-	const response = await axios.patch(`/api/task/${id}`, order);
+export const updateTaskListOrder = (orders) => async (dispatch) => {
+	// console.log('updateTaskListOrder -- orders = ', orders);
+	const response = await axios.patch('/api/tasks/', orders);
 	dispatch({ type: UPDATE_TASK_ORDER, payload: response.data });
 };
 

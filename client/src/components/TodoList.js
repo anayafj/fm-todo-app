@@ -21,9 +21,9 @@ class TodoList extends Component {
 
 	// render list of tasks from data
 	renderList() {
-		return this.state.todos.map(({ task, _id, completed }, index) => {
+		return this.state.todos.map(({ task, _id, completed, order }) => {
 			return (
-				<Draggable key={_id} draggableId={_id} index={index}>
+				<Draggable key={_id} draggableId={_id} index={order}>
 					{(provided) => (
 						<div
 							className={`listItem ${completed ? 'selected' : ''} 
@@ -67,100 +67,34 @@ class TodoList extends Component {
 	};
 
 	// update task list order; send object of order with id order pair
-	updateTaskListOrder = (result, items) => {
-		console.log('result - ', result);
-		// get values of : destination.index, source.index
-		// check to see how many task order will need to be updated.
-		// pass thru array and update order index of task object
+	updateTaskListOrder = (items) => {
+		const _UPDATED_TASKS = [];
 
-		const UpdatedTasks = [];
-		const DraggableId = result.draggableId;
-		const draggableDestinationIndex = result.destination.index;
-		const draggableSourceIndex = result.source.index;
-		let amountOfTasksToUpdateOrder =
-			draggableDestinationIndex < draggableSourceIndex
-				? draggableSourceIndex - draggableDestinationIndex
-				: draggableDestinationIndex - draggableSourceIndex;
+		items.forEach((task, index) => {
+			// task order and index do not match. updated order with index
+			if (task.order !== index) {
+				task.order = index;
+				_UPDATED_TASKS.push(task);
+			}
+		});
 
-		const filterTasksToUpdate = (moveUp = true) => {
-			let moves = amountOfTasksToUpdateOrder;
-			let arrayPosition = 0;
-			let startIndex = moveUp
-				? draggableDestinationIndex
-				: draggableSourceIndex;
-			let endIndex = moveUp ? draggableSourceIndex : draggableDestinationIndex;
+		if (_UPDATED_TASKS) this.saveReorderedList(_UPDATED_TASKS);
+		// if (items) this.saveReorderedList(items);
+	};
 
-			console.log('startIndex = ', startIndex);
-			console.log('endIndex = ', endIndex);
+	// save updated task order. array of objects with id and order number
+	saveReorderedList = (tasks) => {
+		// console.log('tasks = ', tasks);
+		const _REORDERED_TASKS = [];
 
-			this.state.todos.forEach((task) => {
-				if (arrayPosition >= startIndex && arrayPosition <= endIndex) {
-					// find new task by id, update order and add task
-					let currentPrevTask = items[arrayPosition];
-
-					// if ID matches draggableId, update order with destination index
-					if (currentPrevTask._id === DraggableId) {
-						currentPrevTask.order = draggableDestinationIndex;
-						// } else if (arrayPosition === endIndex) {
-						// 	console.log('Check for end index');
-						// 	currentPrevTask.order = moveUp
-						// 		? draggableDestinationIndex + moves
-						// 		: draggableSourceIndex;
-					} else {
-						// update the remaining orders, check if up/down
-						switch (moveUp) {
-							case true:
-								if (arrayPosition === endIndex) {
-									currentPrevTask.order =
-										draggableDestinationIndex + amountOfTasksToUpdateOrder;
-								} else {
-									console.log('UP - The rest of orders');
-									const _TOTAL_ITEMS =
-										items.length - amountOfTasksToUpdateOrder;
-									let movesToMake = _TOTAL_ITEMS - moves;
-									console.log('_TOTAL_ITEMS = ', _TOTAL_ITEMS);
-									console.log('movesToMake = ', movesToMake);
-									console.log(
-										'draggableDestinationIndex = ',
-										draggableDestinationIndex,
-									);
-
-									if (movesToMake > 1) {
-										moves--;
-									}
-									currentPrevTask.order =
-										draggableDestinationIndex + movesToMake;
-									// console.log(
-									// 	'UP - REST -- currentPrevTask = ',
-									// 	currentPrevTask,
-									// );
-								}
-								break;
-							case false:
-								if (arrayPosition === startIndex) {
-									currentPrevTask.order = draggableSourceIndex;
-								}
-								break;
-							default:
-								return;
-						}
-						// currentPrevTask.order = draggableSourceIndex;
-					}
-
-					console.log('currentPrevTask = ', currentPrevTask);
-					console.log('arrayPosition = ', arrayPosition);
-					UpdatedTasks.push(currentPrevTask);
-				}
-				arrayPosition++;
-			});
-
-			// console.log('Up - UpdatedTasks - ', UpdatedTasks);
-		};
-
-		// call function with order direction: false if moving down.
-		draggableDestinationIndex < draggableSourceIndex
-			? filterTasksToUpdate()
-			: filterTasksToUpdate(false);
+		tasks.forEach((task) => {
+			let taskObj = {};
+			taskObj['_id'] = task._id;
+			taskObj['order'] = task.order;
+			_REORDERED_TASKS.push(taskObj);
+		});
+		this.props.updateTaskListOrder(_REORDERED_TASKS);
+		console.log('_REORDERED_TASKS = ', _REORDERED_TASKS);
 	};
 
 	// delete single task; send task id
@@ -214,10 +148,7 @@ class TodoList extends Component {
 		items.splice(result.destination.index, 0, reorderedItem);
 
 		this.setState({ todos: items }); // update new order by updating the tasks state
-		// console.log('drag end - items = ', items);
-		// console.log('drag end - reorderedItem = ', reorderedItem);
-		// console.log('drag end - OG items = ', this.state.todos);
-		this.updateTaskListOrder(result, items);
+		this.updateTaskListOrder(items); // update new order to save on database
 	};
 
 	render() {
