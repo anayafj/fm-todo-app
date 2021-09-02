@@ -12,6 +12,8 @@ const LIGHT_BACKGROUND = './images/bg-desktop-light.jpg';
 const DARK_MOBILE_BACKGROUND = './images/bg-mobile-dark.jpg';
 const LIGHT_MOBILE_BACKGROUND = './images/bg-mobile-light.jpg';
 
+// ****************************** SET DATABASE DOCUMENT FOR THEME SETTING !!!!!!!!!!!!
+
 class App extends React.Component {
 	state = { isThemeDay: false };
 
@@ -20,17 +22,20 @@ class App extends React.Component {
 	};
 
 	setUpdatedTheme = (isDay) => {
-		console.log('APP SETUP THEME -- isDay = ', isDay);
 		this.setState({ isThemeDay: isDay });
 	};
 
 	render() {
+		const _TASKS_AVAILABLE = this.props.tasks > 0 ? true : false;
 		return (
 			<div className={`wrapper ${this.state.isThemeDay ? 'theme-day' : ''}`}>
 				<div className="main">
-					<Header setUpdatedTheme={this.setUpdatedTheme} />
-					<CreateTodoItem />
-					{this.props.tasks && <TodoList />}
+					<Header
+						setUpdatedTheme={this.setUpdatedTheme}
+						isThemeDay={this.state.isThemeDay}
+					/>
+					<CreateTodoItem numberOfTasks={this.props.tasks} />
+					{_TASKS_AVAILABLE && <TodoList />}
 				</div>
 				<div className="background">
 					<img
@@ -62,11 +67,13 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-	tasks: PropTypes.bool,
+	tasks: PropTypes.number,
+	isThemeDay: PropTypes.bool,
+	isDay: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
-	return { tasks: state.length > 0 ? true : false };
+	return { tasks: state.length };
 };
 
 export default connect(mapStateToProps, actions)(App);

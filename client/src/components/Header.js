@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-// class Header extends Component {
-function Header({ setUpdatedTheme }) {
-	const [theme, setTheme] = useState([{ day: false }]);
+function Header({ setUpdatedTheme, isThemeDay }) {
+	const [dayTheme, setTheme] = useState(isThemeDay);
 
 	useEffect(() => {
-		setUpdatedTheme(theme.day);
-	}, [theme, setUpdatedTheme]);
+		setUpdatedTheme(dayTheme);
+	}, [dayTheme, setUpdatedTheme]);
 
 	return (
 		<div className="head">
 			<h1>TODO</h1>
-			<div className="theme-icon" onClick={() => setTheme({ day: !theme.day })}>
+			<div className="theme-icon" onClick={() => setTheme(!dayTheme)}>
 				<img
 					id="sun"
-					className={`${theme.day ? 'hide' : ''}`}
+					className={`${dayTheme ? 'hide' : ''}`}
 					src="./images/icon-sun.svg"
 					alt="Light Theme toggle"
 					width="26"
@@ -23,7 +22,7 @@ function Header({ setUpdatedTheme }) {
 				/>
 				<img
 					id="moon"
-					className={`${!theme.day ? 'hide' : ''}`}
+					className={`${!dayTheme ? 'hide' : ''}`}
 					src="./images/icon-moon.svg"
 					alt="Dark Theme toggle"
 					width="26"
@@ -35,8 +34,8 @@ function Header({ setUpdatedTheme }) {
 }
 
 Header.propTypes = {
-	theme: PropTypes.object,
-	day: PropTypes.bool,
+	setUpdatedTheme: PropTypes.func,
+	dayTheme: PropTypes.bool,
 };
 
 export default Header;

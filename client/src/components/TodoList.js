@@ -14,13 +14,15 @@ class TodoList extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.tasks !== this.props.tasks) {
+			console.log('componentDidUpdate - props - tasks = ', this.props.tasks);
 			this.setState({ todos: this.props.tasks });
 			console.log('Updated State - todos = ', this.state.todos);
 		}
 	}
 
-	// render list of tasks from data
+	// render list of tasks from data --\\-->
 	renderList() {
+		console.log('renderList - todos = ', this.state.todos);
 		return this.state.todos.map(({ task, _id, completed, order }) => {
 			return (
 				<Draggable key={_id} draggableId={_id} index={order}>
@@ -61,12 +63,12 @@ class TodoList extends Component {
 		});
 	}
 
-	// update task as completed; send id and object of complete with boolean value
+	// update task as completed; send id and object of complete with boolean value --\\-->
 	updateTaskCompleted = (id, completed) => {
 		this.props.updatedTask(id, { completed: !completed });
 	};
 
-	// update task list order; send object of order with id order pair
+	// update task list order; send object of order with id order pair --\\-->
 	updateTaskListOrder = (items) => {
 		const _UPDATED_TASKS = [];
 
@@ -79,12 +81,10 @@ class TodoList extends Component {
 		});
 
 		if (_UPDATED_TASKS) this.saveReorderedList(_UPDATED_TASKS);
-		// if (items) this.saveReorderedList(items);
 	};
 
-	// save updated task order. array of objects with id and order number
+	// save updated task order. array of objects with id and order number --\\-->
 	saveReorderedList = (tasks) => {
-		// console.log('tasks = ', tasks);
 		const _REORDERED_TASKS = [];
 
 		tasks.forEach((task) => {
@@ -94,42 +94,37 @@ class TodoList extends Component {
 			_REORDERED_TASKS.push(taskObj);
 		});
 		this.props.updateTaskListOrder(_REORDERED_TASKS);
-		console.log('_REORDERED_TASKS = ', _REORDERED_TASKS);
 	};
 
-	// delete single task; send task id
+	// delete single task; send task id --\\-->
 	deleteTask = (id) => {
 		this.props.deleteTask(id);
 	};
 
-	// controls all filter clicks
+	// controls all filter clicks --\\-->
 	handleFilterClicks = (evt) => {
 		let targetDiv = evt.target;
 		let updateFilterState = '';
 
 		switch (targetDiv.id) {
 			case 'btnAll':
-				console.log('btnAll');
 				updateFilterState = _FILTER_ALL;
 				break;
 			case 'btnActive':
-				console.log('btnActive');
 				updateFilterState = _FILTER_ACTIVE;
 				break;
 			case 'btnCompleted':
-				console.log('btnCompleted');
 				updateFilterState = _FILTER_COMPLETED;
 				break;
 			default:
-				console.log('default');
+				console.info('handleFilterClicks - default');
 		}
 
 		this.setState({ activeFilter: updateFilterState });
 	};
 
-	// clears all completed task; send array of ids to delete
+	// clears all completed task; send array of ids to delete  --\\-->
 	clearCompleted = () => {
-		console.log('Clearing Completed');
 		let completed_Ids = [];
 		this.props.tasks.forEach(({ _id, completed }) => {
 			if (completed) completed_Ids.push(_id);
@@ -138,7 +133,6 @@ class TodoList extends Component {
 	};
 
 	handleOnDragEnd = (result) => {
-		// console.log('result - ', result);
 		if (!result.destination) return;
 		// create a new copy of our characters array
 		const items = Array.from(this.state.todos);
@@ -147,14 +141,12 @@ class TodoList extends Component {
 		// then use our destination.index to add that item back into the array, but at it’s new location, again using splice
 		items.splice(result.destination.index, 0, reorderedItem);
 
-		this.setState({ todos: items }); // update new order by updating the tasks state
-		this.updateTaskListOrder(items); // update new order to save on database
+		this.setState({ todos: items }); // update new order by updating the tasks state --\\-->
+		this.updateTaskListOrder(items); // update new order to save on database --\\-->
 	};
 
 	render() {
-		// console.log('Render ---- Updated State - todos = ', this.state.todos);
-		// console.log('Render ---- Updated Props - tasks = ', this.props.tasks);
-		// get remaining items to complete
+		// get remaining items to complete --\\-->
 		let itemsLeft;
 		if (this.props.tasks)
 			itemsLeft = this.props.tasks.filter(

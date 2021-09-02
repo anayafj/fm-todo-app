@@ -7,8 +7,8 @@ const DELETE_TASK = 'delete_task';
 const DELETE_TASKS = 'delete_tasks';
 
 export default function (state = null, action) {
-	console.log('From Reducer = ', action.payload);
-	console.log('From Reducer - state = ', state);
+	if (action.payload) console.log('From Reducer = ', action.payload);
+	// console.log('From Reducer - state = ', state);
 
 	switch (action.type) {
 		case GET_TASKS:
@@ -28,6 +28,7 @@ export default function (state = null, action) {
 
 			return orderedTaskList;
 		case ADD_TASK:
+			console.log('ADD_TASK = ', [...state, action.payload]);
 			return [...state, action.payload];
 		case UPDATE_TASK:
 			let updatedArray = state.map((task) => {
@@ -40,7 +41,6 @@ export default function (state = null, action) {
 			return updatedArray;
 		case UPDATE_TASK_ORDER:
 			let reorderedTaskList = state.map((task, index) => {
-				//check if updatedTask order matches index
 				for (let updatedTask of action.payload) {
 					if (index === updatedTask.order) {
 						return updatedTask;
@@ -50,6 +50,10 @@ export default function (state = null, action) {
 			});
 			return reorderedTaskList;
 		case DELETE_TASK:
+			console.log(
+				'DELETE TASK = ',
+				state.filter((task) => task._id !== action.payload),
+			);
 			return state.filter((task) => task._id !== action.payload);
 		case DELETE_TASKS:
 			return state.filter(

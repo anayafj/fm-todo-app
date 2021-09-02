@@ -1,30 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import PropTypes from 'prop-types';
 
 class CreateTodoItem extends Component {
 	state = { todoItem: '' };
 
-	// update state on input change
+	// update state on input change --\\-->
 	handleChange = (evt) => {
 		this.setState({ todoItem: evt.target.value });
 	};
 
-	// save new task and clear input
+	// save new task and clear input --\\-->
 	handleSubmit = (evt) => {
 		evt.preventDefault();
-		this.props.addTask({ task: this.state.todoItem });
+		this.props.addTask({
+			task: this.state.todoItem,
+			order: this.props.numberOfTasks,
+		});
 		this.setState({ todoItem: '' });
 	};
+	order;
 
-	// Clears input field
+	// Clears input field --\\-->
 	clearInputField = (evt) => {
 		evt.preventDefault();
 		this.setState({ todoItem: '' });
 	};
 
 	render() {
-		// makes clear input field button available when text there
+		if (this.props.numberOfTasks)
+			console.log('number of tasks = ', this.props.numberOfTasks);
+		// makes clear input field button available when text there --\\-->
 		let showClearButton =
 			this.state.todoItem.length > 0
 				? { visibility: 'visible' }
@@ -62,5 +69,11 @@ class CreateTodoItem extends Component {
 		);
 	}
 }
+
+CreateTodoItem.proptype = {
+	todoItem: PropTypes.string,
+	task: PropTypes.string,
+	order: PropTypes.number,
+};
 
 export default connect(null, actions)(CreateTodoItem);
