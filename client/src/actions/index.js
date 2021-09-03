@@ -30,9 +30,11 @@ export const updateTaskListOrder = (orders) => async (dispatch) => {
 };
 
 // Delete task --\\-->
-export const deleteTask = (id) => async (dispatch) => {
-	const response = await axios.delete(`/api/tasks/${id}`);
-	dispatch({ type: DELETE_TASK, payload: response.data });
+export const deleteTask = (id, taskReorders) => async (dispatch) => {
+	console.log('id = ', id);
+	console.log('taskReorders = ', taskReorders);
+	// const response = await axios.delete(`/api/tasks/${id}`);
+	// dispatch({ type: DELETE_TASK, payload: response.data });
 };
 
 // Delete task --\\-->

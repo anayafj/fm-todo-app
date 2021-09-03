@@ -48,7 +48,10 @@ class TodoList extends Component {
 								/>
 							</div>
 							<div className="item ">{task}</div>
-							<div className="xButton" onClick={() => this.deleteTask(_id)}>
+							<div
+								className="xButton"
+								onClick={() => this.deleteTask(_id, order)}
+							>
 								<img
 									src="./images/icon-cross.svg"
 									width="18"
@@ -96,9 +99,27 @@ class TodoList extends Component {
 		this.props.updateTaskListOrder(_REORDERED_TASKS);
 	};
 
-	// delete single task; send task id --\\-->
-	deleteTask = (id) => {
-		this.props.deleteTask(id);
+	// delete single task; send task id & update order on needed tasks --\\-->
+	deleteTask = (id, order) => {
+		const _REORDERED_TASKS = [];
+
+		// Check order of task and adjust as needed after deleting task --\\-->
+		if (order !== this.state.todos.length - 1) {
+			// For rest of tasks, adjust order as needed --\\-->
+			for (let item of this.state.todos) {
+				if (item.order === order) continue;
+				if (item.order > order) {
+					item.order = item.order - 1;
+				}
+				_REORDERED_TASKS.push(item);
+			}
+		}
+
+		console.log('_REORDERED_TASKS = ', Boolean(_REORDERED_TASKS.length));
+		this.props.deleteTask(
+			id,
+			Boolean(_REORDERED_TASKS.length) ? _REORDERED_TASKS : null,
+		);
 	};
 
 	// controls all filter clicks --\\-->
