@@ -4,6 +4,7 @@ const ADD_TASK = 'add_task';
 const UPDATE_TASK = 'update_task';
 const UPDATE_TASK_ORDER = 'update_task_order';
 const DELETE_TASK = 'delete_task';
+const DELETE_TASK_REORDER = 'delete_task_reorder';
 const DELETE_TASKS = 'delete_tasks';
 
 export default function (state = null, action) {
@@ -55,6 +56,8 @@ export default function (state = null, action) {
 				state.filter((task) => task._id !== action.payload),
 			);
 			return state.filter((task) => task._id !== action.payload);
+		case DELETE_TASK_REORDER:
+			return action.payload;
 		case DELETE_TASKS:
 			return state.filter(
 				(task) => action.payload.includes(task._id) === false,

@@ -48,6 +48,7 @@ router.patch('/tasks/:id', async (req, res) => {
 // Update task list order --\\-->
 router.patch('/tasks/', async (req, res) => {
 	try {
+		// console.log('patch ---- req.body = ', req.body);
 		const tasks = [];
 		await asyncForEach(req.body, async (item) => {
 			const task = await Tasks.findOne({ _id: item._id });
@@ -55,7 +56,7 @@ router.patch('/tasks/', async (req, res) => {
 			await task.save();
 			tasks.push(task);
 		});
-
+		// console.log('patch ---- tasks = ', tasks);
 		res.send(tasks);
 	} catch {
 		res.status(404);
@@ -73,7 +74,7 @@ async function asyncForEach(array, callback) {
 // Delete a task --\\-->
 router.delete('/tasks/:id', async (req, res) => {
 	try {
-		console.log('delete ---- req.params._id = ', req.params.id);
+		// console.log('delete ---- req.params._id = ', req.params.id);
 		await Tasks.deleteOne({ _id: req.params.id });
 		res.send(req.params.id);
 	} catch {

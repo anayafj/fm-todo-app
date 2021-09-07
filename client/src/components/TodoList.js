@@ -14,9 +14,9 @@ class TodoList extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.tasks !== this.props.tasks) {
-			console.log('componentDidUpdate - props - tasks = ', this.props.tasks);
+			// console.log('componentDidUpdate - props - tasks = ', this.props.tasks);
 			this.setState({ todos: this.props.tasks });
-			console.log('Updated State - todos = ', this.state.todos);
+			// console.log('Updated State - todos = ', this.state.todos);
 		}
 	}
 
@@ -115,8 +115,8 @@ class TodoList extends Component {
 			}
 		}
 
-		console.log('_REORDERED_TASKS = ', Boolean(_REORDERED_TASKS.length));
-		this.props.deleteTask(
+		// console.log('_REORDERED_TASKS = ', Boolean(_REORDERED_TASKS.length));
+		this.props.deleteTaskReorder(
 			id,
 			Boolean(_REORDERED_TASKS.length) ? _REORDERED_TASKS : null,
 		);
