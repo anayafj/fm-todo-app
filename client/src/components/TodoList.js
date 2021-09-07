@@ -22,7 +22,7 @@ class TodoList extends Component {
 
 	// render list of tasks from data --\\-->
 	renderList() {
-		console.log('renderList - todos = ', this.state.todos);
+		// console.log('renderList - todos = ', this.state.todos);
 		return this.state.todos.map(({ task, _id, completed, order }) => {
 			return (
 				<Draggable key={_id} draggableId={_id} index={order}>
@@ -144,13 +144,25 @@ class TodoList extends Component {
 		this.setState({ activeFilter: updateFilterState });
 	};
 
-	// clears all completed task; send array of ids to delete  --\\-->
 	clearCompleted = () => {
-		let completed_Ids = [];
-		this.props.tasks.forEach(({ _id, completed }) => {
-			if (completed) completed_Ids.push(_id);
+		const _COMPLETED_IDS = [];
+		let newTaskListToReorder = [];
+
+		this.props.tasks.forEach(({ _id, completed }, index, array) => {
+			newTaskListToReorder = array.filter((task) => !task.completed);
+			if (completed) {
+				_COMPLETED_IDS.push(_id);
+			}
 		});
-		this.props.deleteTasks(completed_Ids);
+
+		const _REORDERED_TASK_LIST = newTaskListToReorder.map((task, index) => {
+			if (task.order !== index) {
+				task.order = index;
+			}
+			return task;
+		});
+
+		this.props.deleteTasksReordered(_COMPLETED_IDS, _REORDERED_TASK_LIST);
 	};
 
 	handleOnDragEnd = (result) => {

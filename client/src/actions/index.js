@@ -53,9 +53,21 @@ export const deleteTaskReorder = (id, taskReorders) => async (dispatch) => {
 
 // Delete task --\\-->
 export const deleteTasks = (idArray) => async (dispatch) => {
-	console.log('ids = ', idArray);
+	// console.log('ids = ', idArray);
 	const response = await axios.delete('/api/tasks/', {
 		data: { ids: idArray },
 	});
 	dispatch({ type: DELETE_TASKS, payload: response.data });
 };
+
+// Delete task --\\-->
+export const deleteTasksReordered =
+	(idArray, taskReorders) => async (dispatch) => {
+		// console.log('ids = ', idArray + '     taskReorders = ', taskReorders);
+		await axios.delete('/api/tasks/', {
+			data: { ids: idArray },
+		});
+		// Tasks to reorder
+		const response = await axios.patch('/api/tasks/', taskReorders);
+		dispatch({ type: DELETE_TASK_REORDER, payload: response.data });
+	};

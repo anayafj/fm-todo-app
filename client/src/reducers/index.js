@@ -29,7 +29,7 @@ export default function (state = null, action) {
 
 			return orderedTaskList;
 		case ADD_TASK:
-			console.log('ADD_TASK = ', [...state, action.payload]);
+			// console.log('ADD_TASK = ', [...state, action.payload]);
 			return [...state, action.payload];
 		case UPDATE_TASK:
 			let updatedArray = state.map((task) => {
@@ -51,10 +51,10 @@ export default function (state = null, action) {
 			});
 			return reorderedTaskList;
 		case DELETE_TASK:
-			console.log(
-				'DELETE TASK = ',
-				state.filter((task) => task._id !== action.payload),
-			);
+			// console.log(
+			// 	'DELETE TASK = ',
+			// 	state.filter((task) => task._id !== action.payload),
+			// );
 			return state.filter((task) => task._id !== action.payload);
 		case DELETE_TASK_REORDER:
 			return action.payload;
