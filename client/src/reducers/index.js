@@ -1,16 +1,14 @@
 /* eslint-disable import/no-anonymous-default-export */
-const GET_TASKS = 'get_tasks';
-const ADD_TASK = 'add_task';
-const UPDATE_TASK = 'update_task';
-const UPDATE_TASK_ORDER = 'update_task_order';
-const DELETE_TASK = 'delete_task';
-const DELETE_TASK_REORDER = 'delete_task_reorder';
-const DELETE_TASKS = 'delete_tasks';
+import {
+	GET_TASKS,
+	ADD_TASK,
+	UPDATE_TASK,
+	UPDATE_TASK_ORDER,
+	DELETE_TASK,
+	DELETE_TASK_REORDER,
+} from '../actions/types';
 
 export default function (state = null, action) {
-	if (action.payload) console.log('From Reducer = ', action.payload);
-	// console.log('From Reducer - state = ', state);
-
 	switch (action.type) {
 		case GET_TASKS:
 			let tempTaskToReorder = [];
@@ -29,39 +27,25 @@ export default function (state = null, action) {
 
 			return orderedTaskList;
 		case ADD_TASK:
-			// console.log('ADD_TASK = ', [...state, action.payload]);
 			return [...state, action.payload];
 		case UPDATE_TASK:
 			let updatedArray = state.map((task) => {
-				if (task._id === action.payload._id) {
-					return action.payload;
-				}
-
+				if (task._id === action.payload._id) return action.payload;
 				return task;
 			});
 			return updatedArray;
 		case UPDATE_TASK_ORDER:
 			let reorderedTaskList = state.map((task, index) => {
 				for (let updatedTask of action.payload) {
-					if (index === updatedTask.order) {
-						return updatedTask;
-					}
+					if (index === updatedTask.order) return updatedTask;
 				}
 				return task;
 			});
 			return reorderedTaskList;
 		case DELETE_TASK:
-			// console.log(
-			// 	'DELETE TASK = ',
-			// 	state.filter((task) => task._id !== action.payload),
-			// );
 			return state.filter((task) => task._id !== action.payload);
 		case DELETE_TASK_REORDER:
 			return action.payload;
-		case DELETE_TASKS:
-			return state.filter(
-				(task) => action.payload.includes(task._id) === false,
-			);
 		default:
 			return state;
 	}

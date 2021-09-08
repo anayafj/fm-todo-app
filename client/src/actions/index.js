@@ -1,12 +1,12 @@
 import axios from 'axios';
-
-const GET_TASKS = 'get_tasks';
-const ADD_TASK = 'add_task';
-const UPDATE_TASK = 'update_task';
-const UPDATE_TASK_ORDER = 'update_task_order';
-const DELETE_TASK = 'delete_task';
-const DELETE_TASK_REORDER = 'delete_task_reorder';
-const DELETE_TASKS = 'delete_tasks';
+import {
+	GET_TASKS,
+	ADD_TASK,
+	UPDATE_TASK,
+	UPDATE_TASK_ORDER,
+	DELETE_TASK,
+	DELETE_TASK_REORDER,
+} from './types';
 
 export const getTasks = () => async (dispatch) => {
 	const response = await axios.get('/api/tasks');
@@ -30,16 +30,8 @@ export const updateTaskListOrder = (orders) => async (dispatch) => {
 	dispatch({ type: UPDATE_TASK_ORDER, payload: response.data });
 };
 
-// Delete task --\\-->
-export const deleteTask = (id, taskReorders) => async (dispatch) => {
-	const response = await axios.delete(`/api/tasks/${id}`);
-	dispatch({ type: DELETE_TASK_REORDER, payload: response.data });
-};
-
 // Delete task and reorder list--\\-->
 export const deleteTaskReorder = (id, taskReorders) => async (dispatch) => {
-	// console.log('id = ', id);
-	// console.log('taskReorders = ', taskReorders);
 	const response = await axios.delete(`/api/tasks/${id}`);
 	if (taskReorders) {
 		// Tasks to reorder
@@ -52,18 +44,8 @@ export const deleteTaskReorder = (id, taskReorders) => async (dispatch) => {
 };
 
 // Delete task --\\-->
-export const deleteTasks = (idArray) => async (dispatch) => {
-	// console.log('ids = ', idArray);
-	const response = await axios.delete('/api/tasks/', {
-		data: { ids: idArray },
-	});
-	dispatch({ type: DELETE_TASKS, payload: response.data });
-};
-
-// Delete task --\\-->
 export const deleteTasksReordered =
 	(idArray, taskReorders) => async (dispatch) => {
-		// console.log('ids = ', idArray + '     taskReorders = ', taskReorders);
 		await axios.delete('/api/tasks/', {
 			data: { ids: idArray },
 		});

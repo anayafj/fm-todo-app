@@ -14,15 +14,12 @@ class TodoList extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.tasks !== this.props.tasks) {
-			// console.log('componentDidUpdate - props - tasks = ', this.props.tasks);
 			this.setState({ todos: this.props.tasks });
-			// console.log('Updated State - todos = ', this.state.todos);
 		}
 	}
 
 	// render list of tasks from data --\\-->
 	renderList() {
-		// console.log('renderList - todos = ', this.state.todos);
 		return this.state.todos.map(({ task, _id, completed, order }) => {
 			return (
 				<Draggable key={_id} draggableId={_id} index={order}>
@@ -76,7 +73,7 @@ class TodoList extends Component {
 		const _UPDATED_TASKS = [];
 
 		items.forEach((task, index) => {
-			// task order and index do not match. updated order with index
+			// task order and index do not match. updated order with index --\\-->
 			if (task.order !== index) {
 				task.order = index;
 				_UPDATED_TASKS.push(task);
@@ -115,7 +112,6 @@ class TodoList extends Component {
 			}
 		}
 
-		// console.log('_REORDERED_TASKS = ', Boolean(_REORDERED_TASKS.length));
 		this.props.deleteTaskReorder(
 			id,
 			Boolean(_REORDERED_TASKS.length) ? _REORDERED_TASKS : null,

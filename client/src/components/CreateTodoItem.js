@@ -29,8 +29,6 @@ class CreateTodoItem extends Component {
 	};
 
 	render() {
-		if (this.props.numberOfTasks)
-			console.log('number of tasks = ', this.props.numberOfTasks);
 		// makes clear input field button available when text there --\\-->
 		let showClearButton =
 			this.state.todoItem.length > 0

@@ -33,10 +33,7 @@ router.post('/tasks/add', async (req, res) => {
 router.patch('/tasks/:id', async (req, res) => {
 	try {
 		const task = await Tasks.findOne({ _id: req.params.id });
-		if (req.body) {
-			task.completed = req.body.completed;
-		}
-
+		if (req.body) task.completed = req.body.completed;
 		await task.save();
 		res.send(task);
 	} catch {
@@ -48,7 +45,6 @@ router.patch('/tasks/:id', async (req, res) => {
 // Update task list order --\\-->
 router.patch('/tasks/', async (req, res) => {
 	try {
-		// console.log('patch ---- req.body = ', req.body);
 		const tasks = [];
 		await asyncForEach(req.body, async (item) => {
 			const task = await Tasks.findOne({ _id: item._id });
@@ -56,7 +52,6 @@ router.patch('/tasks/', async (req, res) => {
 			await task.save();
 			tasks.push(task);
 		});
-		// console.log('patch ---- tasks = ', tasks);
 		res.send(tasks);
 	} catch {
 		res.status(404);
@@ -64,17 +59,9 @@ router.patch('/tasks/', async (req, res) => {
 	}
 });
 
-// ForEach helper function for async/await --\\-->
-async function asyncForEach(array, callback) {
-	for (let index = 0; index < array.length; index++) {
-		await callback(array[index], index, array);
-	}
-}
-
 // Delete a task --\\-->
 router.delete('/tasks/:id', async (req, res) => {
 	try {
-		// console.log('delete ---- req.params._id = ', req.params.id);
 		await Tasks.deleteOne({ _id: req.params.id });
 		res.send(req.params.id);
 	} catch {
@@ -97,5 +84,13 @@ router.delete('/tasks/', async (req, res) => {
 		res.send({ error: "Post doesn't exist!" });
 	}
 });
+
+////////////////////////////////////////////////////
+// ForEach helper function for async/await --\\-->
+async function asyncForEach(array, callback) {
+	for (let index = 0; index < array.length; index++) {
+		await callback(array[index], index, array);
+	}
+}
 
 module.exports = router;
